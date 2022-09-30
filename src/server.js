@@ -11,17 +11,20 @@ const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
+    '/poll': jsonHandler.getQuestion,
+    '/create': htmlHandler.getCreator,
+    '/bundle.js': htmlHandler.getBundle,
     '/getUsers': jsonHandler.getUsers,
-    '/notReal': jsonHandler.notReal,
-    notFound: jsonHandler.notFound,
+    //'/notReal': jsonHandler.notReal,
+    notFound: htmlHandler.notFound,
   },
   HEAD: {
-    '/getUsers': jsonHandler.getUsersMeta,
-    '/notReal': jsonHandler.notRealMeta,
+    //'/getUsers': jsonHandler.getUsersMeta,
+    //'/notReal': jsonHandler.notRealMeta,
     notFound: jsonHandler.notFoundMeta,
   },
   POST: {
-    '/addUser': jsonHandler.addUser,
+    //'/addUser': jsonHandler.addUser,
   },
 };
 
@@ -47,6 +50,7 @@ const parseBody = (request, response, callback) => {
 
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
+  console.log(parsedUrl.pathname);
 
   // If user goes directly to URL, attempt a GET request
   if (!urlStruct[request.method]) {
