@@ -22,13 +22,13 @@ const getCreator = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write(creator);
   response.end();
-}
+};
 
 const notFound = (request, response) => {
   response.writeHead(404, { 'Content-Type': 'text/html' });
   response.write(notFoundPage);
   response.end();
-}
+};
 
 const getBundle = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/javascript' });
@@ -41,5 +41,5 @@ module.exports = {
   getCSS,
   getCreator,
   notFound,
-  getBundle
+  getBundle,
 };

@@ -15,17 +15,18 @@ const urlStruct = {
     '/create': htmlHandler.getCreator,
     '/bundle.js': htmlHandler.getBundle,
     '/getUsers': jsonHandler.getUsers,
-    //'/notReal': jsonHandler.notReal,
+    // '/notReal': jsonHandler.notReal,
     notFound: htmlHandler.notFound,
   },
   HEAD: {
-    //'/getUsers': jsonHandler.getUsersMeta,
-    //'/notReal': jsonHandler.notRealMeta,
+    // '/getUsers': jsonHandler.getUsersMeta,
+    // '/notReal': jsonHandler.notRealMeta,
     notFound: jsonHandler.notFoundMeta,
   },
   POST: {
-    //'/addUser': jsonHandler.addUser,
-    '/addPoll': jsonHandler.addPoll
+    // '/addUser': jsonHandler.addUser,
+    '/addPoll': jsonHandler.addPoll,
+    '/getPoll': jsonHandler.getQuestion,
   },
 };
 

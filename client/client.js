@@ -36,9 +36,25 @@ const handleResponse = async (response, doParse) => {
 };
 
 const handleResult = async (response) => {
-  const results = document.querySelector('#results');
+  handleResponse(response);
+  let results = document.querySelector('#results');
   results.innerHTML = '';
-  results += '<h2>Results:</h2>';
+
+  if (response.status !== 200) {
+    results.innerHTML += '<h2>Could not retrieve results</h2>';
+  } else {
+    let obj = await response.json();
+    console.log(obj);
+    let result = obj.result;
+
+    results.innerHTML += '<h2>Results:</h2>';
+    results.innerHTML += `<h3>${result.question}</h3>`;
+    results.innerHTML += `<b>${result.choiceOne.text}: </b>${result.choiceOne.votes}<br>`;
+    results.innerHTML += `<b>${result.choiceTwo.text}: </b>${result.choiceTwo.votes}<br>`;
+    results.innerHTML += `<b>${result.choiceThree.text}: </b>${result.choiceThree.votes}<br>`;
+    results.innerHTML += `<b>${result.choiceFour.text}: </b>${result.choiceFour.votes}<br>`;
+  }
+
 }
 
 const submitQuestion = async (form) => {
@@ -50,12 +66,14 @@ const submitQuestion = async (form) => {
   const choiceTwoField = form.querySelector('#choiceTwoField');
   const choiceThreeField = form.querySelector('#choiceThreeField');
   const choiceFourField = form.querySelector('#choiceFourField');
+  const keyField = form.querySelector('#keyField');
 
   let data = `question=${questionField.value}`;
   data += `&choiceOne=${choiceOneField.value}`;
   data += `&choiceTwo=${choiceTwoField.value}`;
   data += `&choiceThree=${choiceThreeField.value}`;
   data += `&choiceFour=${choiceFourField.value}`;
+  data += `&key=${keyField.value}`;
 
   let response = await fetch(action, {
     method: method,
