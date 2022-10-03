@@ -35,6 +35,12 @@ const handleResponse = async (response, doParse) => {
     } 
 };
 
+const handleResult = async (response) => {
+  const results = document.querySelector('#results');
+  results.innerHTML = '';
+  results += '<h2>Results:</h2>';
+}
+
 const submitQuestion = async (form) => {
   const action = form.getAttribute('action');
   const method = form.getAttribute('method');
@@ -63,33 +69,38 @@ const submitQuestion = async (form) => {
 };
 
 const makeRequest = async (form) => {
-  const urlField = form.querySelector('#urlField');
-  const methodField = form.querySelector('#methodSelect');
-  let action = urlField.value;
-  let method = methodField.value;
+  const action = form.getAttribute('action');
+  const method = form.getAttribute('method');
+
+  const keyField = form.querySelector('#keyField');
+
+  const data = `key=${keyField.value}`;
+
   let response = await fetch(action, {
     method: method,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
-    }
+    },
+    body: data
   });
-  handleResponse(response, method === 'get');
+  handleResult(response);
 };
 
 const init = () => {
   const createPollForm = document.querySelector('#createPollForm');
-  const userForm = document.querySelector('#userForm');
+  const getPollForm = document.querySelector('#getPollForm');
   const addPoll = (e) => {
     e.preventDefault();
     submitQuestion(createPollForm);
     return false;
   }
-  const requestUser = (e) => {
+  const getPoll = (e) => {
     e.preventDefault();
-    makeRequest(userForm);
+    makeRequest(getPollForm);
     return false;
   }
   createPollForm.addEventListener('submit', addPoll);
+  getPollForm.addEventListener('submit', getPoll);
 }
 window.onload = init;

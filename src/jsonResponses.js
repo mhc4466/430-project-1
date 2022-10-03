@@ -12,8 +12,13 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-const getQuestion = (request, response) => {
+const getQuestion = (request, response, body) => {
+  const responseJSON = {};
+  let status = 200;
 
+  if (!questions[body.key]) {
+    
+  }
 }
 
 
@@ -30,7 +35,7 @@ const addPoll = (request, response, body) => {
     };
     let status = 204;
     
-    if (!body.question || !body.choiceOne || !body.choiceTwo || !body.choiceThree || !body.choiceFour) {
+    if (!body.question || !body.choiceOne || !body.choiceTwo || !body.choiceThree || !body.choiceFour || !body.key) {
       responseJSON.id = 'missingParams';
       responseJSON.message = 'Missing one or more fields';
       return respondJSON(request, response, 400, responseJSON);
