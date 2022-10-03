@@ -24,13 +24,13 @@
       <input id="choiceFourField" type="text" name="choiceFour"value="Purple"/>
       <label for="key">Key: </label>
       <i class="fa fa-question-circle-o tooltip">
-        <span class="tooltiptext">Use this key (NOT YET SECURE; DO NOT USE A PASSWORD) later to retrieve the results of your question</span>
+        <span class="tooltiptext">Use this key later to retrieve the results of your question</span>
       </i>
       <input id="keyField" type="text" name="key"value="favCol"/>
       <input type="submit" value="Add Question" />
     </form>
     <h4>Get results:</h4>
-    <form id="getPollForm" action="/getPoll" method="post">
+    <form id="getResultsForm" action="/getResults" method="post">
       <label for="key">Key: </label>
       <input id="keyField" type="text" name="key" value="favCol"/>
       <input type="submit" value="See results" />

@@ -26,7 +26,7 @@ const urlStruct = {
   POST: {
     // '/addUser': jsonHandler.addUser,
     '/addPoll': jsonHandler.addPoll,
-    '/getPoll': jsonHandler.getQuestion,
+    '/getResults': jsonHandler.getResults,
   },
 };
 

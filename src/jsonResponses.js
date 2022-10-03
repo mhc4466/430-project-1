@@ -12,7 +12,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-const getQuestion = (request, response, body) => {
+const getResults = (request, response, body) => {
   const responseJSON = {};
 
   if (!body.key) {
@@ -76,7 +76,7 @@ const addPoll = (request, response, body) => {
 };
 
 module.exports = {
-  getQuestion,
+  getResults,
   getUsers,
   addPoll,
 };

@@ -107,18 +107,18 @@ const makeRequest = async (form) => {
 
 const init = () => {
   const createPollForm = document.querySelector('#createPollForm');
-  const getPollForm = document.querySelector('#getPollForm');
+  const getPollForm = document.querySelector('#getResultsForm');
   const addPoll = (e) => {
     e.preventDefault();
     submitQuestion(createPollForm);
     return false;
   }
-  const getPoll = (e) => {
+  const getResults = (e) => {
     e.preventDefault();
     makeRequest(getPollForm);
     return false;
   }
   createPollForm.addEventListener('submit', addPoll);
-  getPollForm.addEventListener('submit', getPoll);
+  getPollForm.addEventListener('submit', getResults);
 }
 window.onload = init;
