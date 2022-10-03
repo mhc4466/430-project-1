@@ -32,7 +32,7 @@ const notFound = (request, response) => {
 
 const getBundle = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/javascript' });
-  response.write(css);
+  response.write(bundle);
   response.end();
 };
 

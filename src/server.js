@@ -25,6 +25,7 @@ const urlStruct = {
   },
   POST: {
     //'/addUser': jsonHandler.addUser,
+    '/addPoll': jsonHandler.addPoll
   },
 };
 

@@ -34,12 +34,23 @@ const handleResponse = async (response, doParse) => {
       }
     } 
 };
-const makePOSTRequest = async (form) => {
+
+const submitQuestion = async (form) => {
   const action = form.getAttribute('action');
   const method = form.getAttribute('method');
-  const nameField = form.querySelector('#nameField');
-  const ageField = form.querySelector('#ageField');
-  const data = `name=${nameField.value}&age=${ageField.value}`;
+
+  const questionField = form.querySelector('#questionField');
+  const choiceOneField = form.querySelector('#choiceOneField');
+  const choiceTwoField = form.querySelector('#choiceTwoField');
+  const choiceThreeField = form.querySelector('#choiceThreeField');
+  const choiceFourField = form.querySelector('#choiceFourField');
+
+  let data = `question=${questionField.value}`;
+  data += `&choiceOne=${choiceOneField.value}`;
+  data += `&choiceTwo=${choiceTwoField.value}`;
+  data += `&choiceThree=${choiceThreeField.value}`;
+  data += `&choiceFour=${choiceFourField.value}`;
+
   let response = await fetch(action, {
     method: method,
     headers: {
@@ -50,6 +61,7 @@ const makePOSTRequest = async (form) => {
   });
   handleResponse(response, true);
 };
+
 const makeRequest = async (form) => {
   const urlField = form.querySelector('#urlField');
   const methodField = form.querySelector('#methodSelect');
@@ -64,12 +76,13 @@ const makeRequest = async (form) => {
   });
   handleResponse(response, method === 'get');
 };
+
 const init = () => {
-  const nameForm = document.querySelector('#nameForm');
+  const createPollForm = document.querySelector('#createPollForm');
   const userForm = document.querySelector('#userForm');
-  const addUser = (e) => {
+  const addPoll = (e) => {
     e.preventDefault();
-    makePOSTRequest(nameForm);
+    submitQuestion(createPollForm);
     return false;
   }
   const requestUser = (e) => {
@@ -77,7 +90,6 @@ const init = () => {
     makeRequest(userForm);
     return false;
   }
-  nameForm.addEventListener('submit', addUser);
-  userForm.addEventListener('submit', requestUser);
+  createPollForm.addEventListener('submit', addPoll);
 }
 window.onload = init;

@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Our simple HTTP server</title>
+  <title>FormPolls</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/bundle.js"></script>
 </head>
 <body>
   <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
+    <h3>Welcome to FormPolls!</h3>
+    <h4>Create poll:</h4>
+    <form id="createPollForm" action="/addPoll" method="post">
+      <label for="question">Question: </label>
+      <input id="questionField" type="text" name="question" value="Favorite color?"/>
+      <label for="choiceOne">Choice 1: </label>
+      <input id="choiceOneField" type="text" name="choiceOne"value="Red"/>
+      <label for="choiceTwo">Choice 2: </label>
+      <input id="choiceTwoField" type="text" name="choiceTwo"value="Green"/>
+      <label for="choiceThree">Choice 3: </label>
+      <input id="choiceThreeField" type="text" name="choiceThree"value="Blue"/>
+      <label for="choiceFour">Choice 4: </label>
+      <input id="choiceFourField" type="text" name="choiceFour"value="Purple"/>
+      <label for="key">Key: </label>
+      <i class="fa fa-question-circle-o tooltip">
+        <span class="tooltiptext">Use this key (NOT YET SECURE; DO NOT USE A PASSWORD) later to retrieve the results of your question</span>
+      </i>
+      <input id="keyField" type="text" name="key"value="favCol"/>
+      <input type="submit" value="Add Question" />
     </form>
-    <form id="userForm" action="/getUsers" method="get">
+    <h4>Get results:</h4>
+    <form id="getPollForm" action="/getPoll" method="get">
+      <label for="key">Key: </label>
+      <input id="keyField" type="text" name="key" value="favCol"/>
+      <input type="submit" value="See results" />
+    </form>
+    <!--form id="userForm" action="/getUsers" method="get">
       <select id='urlField'>
         <option value='/getUsers'>/getUsers</option>
         <option value='/notReal'>/notReal</option>
@@ -25,9 +45,11 @@
         <option value="head">HEAD</option>
       </select>
       <input type="submit" value="Get User" />
-    </form>
+    </form-->
   </section>
   <section id="content">
+  </section>
+  <section id="results">
   </section>
 </body>
 </html>
