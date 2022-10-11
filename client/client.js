@@ -108,6 +108,9 @@ const makeRequest = async (form) => {
 const init = () => {
   const createPollForm = document.querySelector('#createPollForm');
   const getPollForm = document.querySelector('#getResultsForm');
+
+  //Overrides going directly to a link, 
+  //tells form to send data in form as request to server
   const addPoll = (e) => {
     e.preventDefault();
     submitQuestion(createPollForm);
@@ -118,7 +121,11 @@ const init = () => {
     makeRequest(getPollForm);
     return false;
   }
-  createPollForm.addEventListener('submit', addPoll);
-  getPollForm.addEventListener('submit', getResults);
+
+  //
+  if (createPollForm && getPollForm) {
+    createPollForm.addEventListener('submit', addPoll);
+    getPollForm.addEventListener('submit', getResults);
+  }
 }
 window.onload = init;

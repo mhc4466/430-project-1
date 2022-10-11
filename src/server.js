@@ -10,10 +10,17 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
+    '/home': htmlHandler.getHome,
     '/style.css': htmlHandler.getCSS,
+    '/home.css': htmlHandler.getHomeCSS,
+    '/client.css': htmlHandler.getClientCSS,
+    '/results.css': htmlHandler.getResultsCSS,
     '/poll': jsonHandler.getQuestion,
     '/create': htmlHandler.getCreator,
+    '/results': htmlHandler.getResults,
     '/bundle.js': htmlHandler.getBundle,
+    '/home.js': htmlHandler.getHomeJS,
+    '/results.js': htmlHandler.getResultsJS,
     '/getUsers': jsonHandler.getUsers,
     // '/notReal': jsonHandler.notReal,
     notFound: htmlHandler.notFound,
