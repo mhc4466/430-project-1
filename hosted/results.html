@@ -8,17 +8,35 @@
   <script src="/results.js"></script>
 </head>
 <body>
-  <section id="top">
-    <h1>See Poll Results</h1>
+  <section class="hero is-info is-medium">
+    <div class="hero-head">
+        <div class="control">
+          <a class="button" type="button" href="/home" value="HOME" id="home">
+            <i class="fa fa-home fa-lg"></i>
+          </a>
+        </div>
+    </div>
+    <div class="hero-body">
+        <p class="title">
+            <b>See Poll Results</b>
+        </p>
+        <section id="prompt">
+          <h2 id="promptHeading">Resolving poll name...</h2>
+          <form id="getResultsForm" action="/getResults" method="post">
+            <div class="field">
+                <label class="label" for="key">Key: </label>
+                <div class="control">
+                    <input class="input" id="keyField" type="text" name="key" value="abc123"/>
+                </div>
+                <div class="control">
+                    <input class="button" type="submit" value="See Results" />
+                </div>
+            </div>
+          </form>
+        </section>
+        <section id="results"></section>
+    </div>
   </section>
-  <section id="prompt">
-    <h2 id="promptHeading">Resolving poll name...</h2>
-    <form id="getResultsForm" action="/getResults" method="post">
-        <label for="key">Key: </label>
-        <input id="keyField" type="text" name="key" value="favCol"/>
-        <input type="submit" value="See results" />
-    </form>
-  </section>
-  <section id="results"></section>
+
 </body>
 </html>

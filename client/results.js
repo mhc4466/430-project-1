@@ -8,7 +8,7 @@ const writePollName = async (response) => {
         let obj = await response.json();
         console.log(obj);
         let name = obj.name;
-        promptHeading.innerHTML += `<h2>Please enter key for poll: ${name}</h2>`
+        promptHeading.innerHTML += `<h2>Please enter key for poll: "${name}"</h2>`
     }
 }
 
@@ -26,19 +26,39 @@ const handleResult = async (response) => {
   let results = document.querySelector('#results');
   results.innerHTML = '';
 
-  if (response.status !== 200) {
-    results.innerHTML += '<h2>Could not retrieve results</h2>';
-  } else {
-    let obj = await response.json();
-    console.log(obj);
-    let result = obj.result;
+  switch (response.status) {
+    case 200:
+        let obj = await response.json();
+        let result = obj.result;
 
-    results.innerHTML += '<h2>Results:</h2>';
-    results.innerHTML += `<h3>${result.question}</h3>`;
-    results.innerHTML += `<b>${result.choiceOne.text}: </b>${result.choiceOne.votes}<br>`;
-    results.innerHTML += `<b>${result.choiceTwo.text}: </b>${result.choiceTwo.votes}<br>`;
-    results.innerHTML += `<b>${result.choiceThree.text}: </b>${result.choiceThree.votes}<br>`;
-    results.innerHTML += `<b>${result.choiceFour.text}: </b>${result.choiceFour.votes}<br>`;
+        /* 
+        results.innerHTML += '<h2>Results:</h2>';
+        results.innerHTML += `<h3>${result.question}</h3>`;
+        results.innerHTML += `<b>${result.choiceOne.text}: </b>${result.choiceOne.votes}<br>`;
+        results.innerHTML += `<b>${result.choiceTwo.text}: </b>${result.choiceTwo.votes}<br>`;
+        results.innerHTML += `<b>${result.choiceThree.text}: </b>${result.choiceThree.votes}<br>`;
+        results.innerHTML += `<b>${result.choiceFour.text}: </b>${result.choiceFour.votes}<br>`;
+        */
+        results.innerHTML += 
+        `<h2>Responses to "${result.question}": </h2>
+        <h3><b>${result.choiceOne.text}: </b>${result.choiceOne.votes}</h3>
+        <h3><b>${result.choiceTwo.text}: </b>${result.choiceTwo.votes}</h3>
+        <h3><b>${result.choiceThree.text}: </b>${result.choiceThree.votes}</h3>
+        <h3><b>${result.choiceFour.text}: </b>${result.choiceFour.votes}</h3>
+        `;
+        break;
+    case 400:
+        results.innerHTML += '<h2>Please enter a key</h2>';
+        break;
+    case 403:
+        results.innerHTML += '<h2>Incorrect key</h2>';
+        break;
+    case 404:
+        results.innerHTML += '<h2>No poll with given ID exists, return to home page</h2>';
+        break;
+    default:
+        results.innerHTML += '<h2>Unexpected error</h2>'
+        break;
   }
 
 }

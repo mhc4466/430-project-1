@@ -36,6 +36,12 @@ const getResults = (request, response, body) => {
     return respondJSON(request, response, 404, responseJSON);
   }
 
+  if (body.key !== questions[body.id].key) {
+    responseJSON.id = 'invalidKey';
+    responseJSON.message = 'An incorrect key was entered for the requested poll';
+    return respondJSON(request, response, 403, responseJSON);
+  }
+  
   responseJSON.result = questions[body.id];
   responseJSON.message = `Retrieved poll "${questions[body.id].question}"`;
   return respondJSON(request, response, 200, responseJSON);
