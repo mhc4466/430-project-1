@@ -15,13 +15,15 @@ const urlStruct = {
     '/home.css': htmlHandler.getHomeCSS,
     '/client.css': htmlHandler.getClientCSS,
     '/results.css': htmlHandler.getResultsCSS,
-    '/poll': jsonHandler.getQuestion,
+    '/poll.css': htmlHandler.getPollCSS,
+    '/poll': htmlHandler.getPoll,
     '/create': htmlHandler.getCreator,
     '/results': htmlHandler.getResults,
     '/resolve': jsonHandler.getName,
     '/bundle.js': htmlHandler.getBundle,
     '/home.js': htmlHandler.getHomeJS,
     '/results.js': htmlHandler.getResultsJS,
+    '/poll.js': htmlHandler.getPollJS,
     '/getUsers': jsonHandler.getUsers,
     // '/notReal': jsonHandler.notReal,
     notFound: htmlHandler.notFound,
@@ -82,7 +84,6 @@ const onRequest = (request, response) => {
     // If it's any other accepted method, handle it normally
     //Functions that need params:
     if (parsedUrl.pathname === '/resolve') {
-      console.log(params);
       urlStruct[request.method][parsedUrl.pathname](request, response, params);
     //The rest
     } else {

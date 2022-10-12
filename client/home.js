@@ -13,7 +13,7 @@ const updatePrompt = (source) => {
             form.method = "get";
             form.innerHTML += 
                 `<label for="id">ID: </label>
-                <input id="idField" type="text" name="id" value="ABC123"/>
+                <input id="idField" type="text" name="id" value="example"/>
                 <input type="submit" value="Find Poll" />`;
             prompt.appendChild(form);
             break;
@@ -27,7 +27,7 @@ const updatePrompt = (source) => {
             form.method = "get";
             form.innerHTML += 
                 `<label for="id">ID: </label>
-                <input id="idField" type="text" name="id" value="ABC123"/>
+                <input id="idField" type="text" name="id" value="example"/>
                 <input type="submit" value="Find Poll Results" />`;
             prompt.appendChild(form);
             break;
