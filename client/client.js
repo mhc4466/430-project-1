@@ -125,7 +125,6 @@ const init = () => {
     return false;
   }
 
-  //
   if (createPollForm && getPollForm) {
     createPollForm.addEventListener('submit', addPoll);
     getPollForm.addEventListener('submit', getResults);

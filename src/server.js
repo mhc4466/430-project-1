@@ -17,6 +17,7 @@ const urlStruct = {
     '/results.css': htmlHandler.getResultsCSS,
     '/poll.css': htmlHandler.getPollCSS,
     '/poll': htmlHandler.getPoll,
+    '/question': jsonHandler.getQuestion,
     '/create': htmlHandler.getCreator,
     '/results': htmlHandler.getResults,
     '/resolve': jsonHandler.getName,
@@ -37,6 +38,7 @@ const urlStruct = {
     // '/addUser': jsonHandler.addUser,
     '/addPoll': jsonHandler.addPoll,
     '/getResults': jsonHandler.getResults,
+    '/vote': jsonHandler.acceptVote,
   },
 };
 
@@ -82,8 +84,9 @@ const onRequest = (request, response) => {
     parseBody(request, response, urlStruct.POST[parsedUrl.pathname]);
   } else if (urlStruct[request.method][parsedUrl.pathname]) {
     // If it's any other accepted method, handle it normally
-    //Functions that need params:
-    if (parsedUrl.pathname === '/resolve') {
+    //Functions that need params (i.e. non-POST, with an ID):
+    if (parsedUrl.pathname === '/resolve' || parsedUrl.pathname === '/question') {
+      console.log(params);
       urlStruct[request.method][parsedUrl.pathname](request, response, params);
     //The rest
     } else {

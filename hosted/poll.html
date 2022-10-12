@@ -9,11 +9,20 @@
 </head>
 <body>
   <section id="top">
-    <h1>Poll: </h1>
+    <h1 id="pollHeading">Poll: </h1>
   </section>
-  <section id="prompt">
-    <h2 id="promptHeading">Resolving poll name...</h2>
-  </section>
-  <section id="poll"></section>
+  <section id="poll">
+    <form id="pollForm" action="/vote" method="post">
+        <label for="choiceOne">1</label>
+        <input type="radio" id="choiceOneRadio" name="poll" value="1"><br>
+        <label for="choiceTwo">2</label>
+        <input type="radio" id="choiceTwoRadio" name="poll" value="2"><br>
+        <label for="choiceThree">3</label>
+        <input type="radio" id="choiceThreeRadio" name="poll" value="3"><br>
+        <label for="choiceFour">4</label>
+        <input type="radio" id="choiceFourRadio" name="poll" value="4"><br>
+        <input type="submit" value="Submit choice" />
+    </form>
+    </section>
 </body>
 </html>

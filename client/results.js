@@ -48,7 +48,7 @@ const makeRequest = async (id, form) => {
     const method = form.getAttribute('method');
   
     const keyField = form.querySelector('#keyField');
-    let data = `id=${id}`
+    let data = `id=${id}`;
     data += `&key=${keyField.value}`;
 
   

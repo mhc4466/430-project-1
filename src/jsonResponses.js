@@ -114,11 +114,62 @@ const addPoll = (request, response, body) => {
   return respondJSONMeta(request, response, status);
 };
 
+const getQuestion = (request, response, params) => {
+  const responseJSON = {};
+
+  //If requested question can't be found, error
+  if (!questions || !questions[params['/question?id']]) {
+    responseJSON.id = 'pollNotFound';
+    responseJSON.message = 'The requested poll could not be found';
+    return respondJSON(request, response, 404, responseJSON);
+  } 
+
+  //Otherwise, return the whole question
+  responseJSON.question = questions[params['/question?id']];
+  return respondJSON(request, response, 200, responseJSON);
+};
+
+const acceptVote = (request, response, body) => {
+  const responseJSON = {};
+
+  //If requested question can't be found, error
+  if (!questions || !questions[body.id]) {
+    responseJSON.id = 'pollNotFound';
+    responseJSON.message = 'The requested poll could not be found';
+    return respondJSON(request, response, 404, responseJSON);
+  } 
+
+  //Otherwise, update the votes and inform success
+  switch (body.choice) {
+    case '1':
+      questions[body.id].choiceOne.votes++;
+      break;
+    case '2':
+      questions[body.id].choiceTwo.votes++;
+      break;
+    case '3':
+      questions[body.id].choiceThree.votes++;
+      break;
+    case '4':
+      questions[body.id].choiceFour.votes++;
+      break;
+    default:
+      console.log("Choice parameters was not correct");
+      break;
+    
+  }
+  responseJSON.message = "Successfully Voted";
+  return respondJSON(request, response, 200, responseJSON);
+};
+
+
 module.exports = {
   getResults,
   getUsers,
   getName,
   addPoll,
+  getQuestion,
+  acceptVote,
 };
 // const getUsersMeta = (request, response) => {
 //  respondJSONMeta(request, response, 200);
