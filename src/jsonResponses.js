@@ -1,15 +1,14 @@
 const example = {
-  id: 'example', 
+  id: 'example',
   key: 'xyz987',
   question: 'Apples?',
   choiceOne: { text: 'One1', votes: 0 },
   choiceTwo: { text: 'Two2', votes: 0 },
   choiceThree: { text: 'Three3', votes: 0 },
   choiceFour: { text: 'Four4', votes: 0 },
-}
+};
 
-const questions = {example: example};
-const users = {};
+const questions = { example };
 
 const respondJSON = (request, response, status, content) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
@@ -42,37 +41,40 @@ const getResults = (request, response, body) => {
   return respondJSON(request, response, 200, responseJSON);
 };
 
-const getUsers = (request, response) => {
-  const responseJSON = {
-    users,
-  };
-  respondJSON(request, response, 200, responseJSON);
-};
-
 const getName = (request, response, params) => {
   const responseJSON = {};
 
-  //If requested question can't be found, error
+  // If requested question can't be found, error
   if (!questions || !questions[params['/resolve?id']]) {
     responseJSON.id = 'pollNotFound';
     responseJSON.message = 'The requested poll could not be found';
     return respondJSON(request, response, 404, responseJSON);
-  } 
+  }
 
-  //Otherwise, return the name requested
+  // Otherwise, return the name requested
   responseJSON.name = questions[params['/resolve?id']].question;
   return respondJSON(request, response, 200, responseJSON);
-}
+};
+
+const getNameMeta = (request, response, params) => {
+  // If requested question can't be found, error
+  if (!questions || !questions[params['/resolve?id']]) {
+    return respondJSONMeta(request, response, 404);
+  }
+
+  // Otherwise, report success
+  return respondJSONMeta(request, response, 200);
+};
 
 const addPoll = (request, response, body) => {
-  //Preemptive failure, overwritten in event of success
+  // Preemptively declare failure, overwritten in event of success
   const responseJSON = {
     message: 'Fields not all filled (server cannot currently handle any unfilled fields).',
   };
-  //Preemptive update, overwritten in event of new question
+  // Preemptively declare update, overwritten in event of new question
   let status = 204;
 
-  //If any parameter is missing, return invalid request
+  // If any parameter is missing, return invalid request
   if (!body.question || !body.choiceOne || !body.choiceTwo || !body.choiceThree || !body.choiceFour
     || !body.id || !body.key) {
     responseJSON.id = 'missingParams';
@@ -80,31 +82,31 @@ const addPoll = (request, response, body) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
-  //Status code of "created" if question ID doesn't already exist
+  // Status code of "created" if question ID doesn't already exist
   if (!questions[body.id]) {
     status = 201;
     questions[body.id] = {};
   }
 
-  //Refreshes the question entry with the given parameters. Votes cleared
+  // Refreshes the question entry with the given parameters. Votes cleared
   questions[body.id].id = body.id;
   questions[body.id].key = body.key;
   questions[body.id].question = body.question;
-  questions[body.id].choiceOne = { 
+  questions[body.id].choiceOne = {
     text: body.choiceOne,
-    votes: 0
+    votes: 0,
   };
   questions[body.id].choiceTwo = {
     text: body.choiceTwo,
-    votes: 0
+    votes: 0,
   };
-  questions[body.id].choiceThree = { 
+  questions[body.id].choiceThree = {
     text: body.choiceThree,
-    votes: 0
+    votes: 0,
   };
-  questions[body.id].choiceFour = { 
+  questions[body.id].choiceFour = {
     text: body.choiceFour,
-    votes: 0
+    votes: 0,
   };
 
   if (status === 201) {
@@ -117,29 +119,39 @@ const addPoll = (request, response, body) => {
 const getQuestion = (request, response, params) => {
   const responseJSON = {};
 
-  //If requested question can't be found, error
+  // If requested question can't be found, error
   if (!questions || !questions[params['/question?id']]) {
     responseJSON.id = 'pollNotFound';
     responseJSON.message = 'The requested poll could not be found';
     return respondJSON(request, response, 404, responseJSON);
-  } 
+  }
 
-  //Otherwise, return the whole question
+  // Otherwise, return the whole question
   responseJSON.question = questions[params['/question?id']];
   return respondJSON(request, response, 200, responseJSON);
+};
+
+const getQuestionMeta = (request, response, params) => {
+  // If requested question can't be found, error
+  if (!questions || !questions[params['/question?id']]) {
+    return respondJSONMeta(request, response, 404);
+  }
+
+  // Otherwise, report success
+  return respondJSONMeta(request, response, 200);
 };
 
 const acceptVote = (request, response, body) => {
   const responseJSON = {};
 
-  //If requested question can't be found, error
+  // If requested question can't be found, error
   if (!questions || !questions[body.id]) {
     responseJSON.id = 'pollNotFound';
     responseJSON.message = 'The requested poll could not be found';
     return respondJSON(request, response, 404, responseJSON);
-  } 
+  }
 
-  //Otherwise, update the votes and inform success
+  // Otherwise, update the votes and inform success
   switch (body.choice) {
     case '1':
       questions[body.id].choiceOne.votes++;
@@ -154,21 +166,20 @@ const acceptVote = (request, response, body) => {
       questions[body.id].choiceFour.votes++;
       break;
     default:
-      console.log("Choice parameters was not correct");
+      console.log('Choice parameters was not correct');
       break;
-    
   }
-  responseJSON.message = "Successfully Voted";
+  responseJSON.message = 'Successfully Voted';
   return respondJSON(request, response, 200, responseJSON);
 };
 
-
 module.exports = {
   getResults,
-  getUsers,
   getName,
+  getNameMeta,
   addPoll,
   getQuestion,
+  getQuestionMeta,
   acceptVote,
 };
 // const getUsersMeta = (request, response) => {

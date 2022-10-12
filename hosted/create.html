@@ -1,15 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Create</title>
+  <title>FormPolls</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
-  
-  <script>
-    
-  </script>
+  <link rel="stylesheet" type="text/css" href="/create.css">
+  <script src="/create.js"></script>
 </head>
 <body>
-    <h1>Welcome to the creator!</h1>
-    <p>Temp</p>
+  <section class="hero is-info">
+    <div class="hero-body">
+      <p class="title">
+        <b>Create a Poll</b>
+      </p>
+      <form id="createPollForm" action="/addPoll" method="post">
+
+        <div class="field">
+          <label class="label" for="question">Question: </label>
+          <div class="control">
+            <input class="input" id="questionField" type="text" name="question" value="Favorite color?"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="choiceOne">Choice 1: </label>
+          <div class="control">
+            <input class="input" id="choiceOneField" type="text" name="choiceOne"value="Red"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="choiceTwo">Choice 2: </label>
+          <div class="control">
+            <input class="input" id="choiceTwoField" type="text" name="choiceTwo"value="Green"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="choiceThree">Choice 3: </label>
+          <div class="control">
+            <input class="input" id="choiceThreeField" type="text" name="choiceThree"value="Blue"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="choiceFour">Choice 4: </label>
+          <div class="control">
+            <input class="input" id="choiceFourField" type="text" name="choiceFour"value="Purple"/>
+          </div>
+        </div>
+
+        <!--div class="field">
+          <label class="label" for="key">ID: 
+            <i class="fa fa-question-circle-o tooltip">
+              <span class="tooltiptext">A public ID to easily share your poll</span>
+            </i>
+          </label>
+          <div class="control">
+            <input class="input" id="idField" type="text" name="id" value="favCol"/>
+          </div>
+        </div-->
+
+        <div class="field">
+          <label class="label" for="key">Key: 
+          </label>
+          <div class="control">
+            <input class="input" id="keyField" type="text" name="key" value="abc123"/>
+          </div>
+          <p class="help">Use this key later to retrieve the results of your question</p>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input class="button is-success" id="submitButton" type="submit" value="Add Question" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
 </body>
 </html>

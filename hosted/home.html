@@ -5,23 +5,27 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   <link rel="stylesheet" type="text/css" href="/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="/home.js"></script>
+  <script src="/bundle.js"></script>
 </head>
 <body>
-  <section id="top">
-    <h1>Homepage</h1>
-  </section>
-  <section class="hero is-info">
+  <section class="hero is-large is-info">
     <div class="hero-body">
         <p class="title">
             Welcome to FormPolls!
         </p>
         <section id="links">
-          <!--Button link code from https://www.w3docs.com/snippets/html/how-to-create-an-html-button-that-acts-like-a-link.html-->
-          <!--More compact than form action, improves styling flexibility-->
-          <button id="respondButton">Respond to a Poll</button>
-          <button id="createButton" onclick="window.location.href='/'">Create Poll</button>
-          <button id="resultsButton">See Poll Results</button>
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button class="button" id="respondButton">Respond to a Poll</button>
+            </div>
+            <div class="control">
+              <button class="button" id="createButton">Create Poll</button>
+            </div>
+            <div class="control">
+              <button class="button" id="resultsButton">See Poll Results</button>
+            </div>
+          </div>
+            
         </section>
         <section id="prompt">
         </section>

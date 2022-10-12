@@ -9,11 +9,11 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
   GET: {
-    '/': htmlHandler.getIndex,
+    '/': htmlHandler.getHome,
     '/home': htmlHandler.getHome,
     '/style.css': htmlHandler.getCSS,
     '/home.css': htmlHandler.getHomeCSS,
-    '/client.css': htmlHandler.getClientCSS,
+    '/create.css': htmlHandler.getCreateCSS,
     '/results.css': htmlHandler.getResultsCSS,
     '/poll.css': htmlHandler.getPollCSS,
     '/poll': htmlHandler.getPoll,
@@ -23,21 +23,19 @@ const urlStruct = {
     '/resolve': jsonHandler.getName,
     '/bundle.js': htmlHandler.getBundle,
     '/home.js': htmlHandler.getHomeJS,
+    '/create.js': htmlHandler.getCreateJS,
     '/results.js': htmlHandler.getResultsJS,
     '/poll.js': htmlHandler.getPollJS,
-    '/getUsers': jsonHandler.getUsers,
-    // '/notReal': jsonHandler.notReal,
     notFound: htmlHandler.notFound,
   },
   HEAD: {
-    // '/getUsers': jsonHandler.getUsersMeta,
-    // '/notReal': jsonHandler.notRealMeta,
+    '/resolve': jsonHandler.getNameMeta,
+    '/question': jsonHandler.getQuestionMeta,
     notFound: jsonHandler.notFoundMeta,
   },
   POST: {
-    // '/addUser': jsonHandler.addUser,
     '/addPoll': jsonHandler.addPoll,
-    '/getResults': jsonHandler.getResults,
+    '/getResults': jsonHandler.getResults, // Written as POST to accept a secure key
     '/vote': jsonHandler.acceptVote,
   },
 };
@@ -84,11 +82,11 @@ const onRequest = (request, response) => {
     parseBody(request, response, urlStruct.POST[parsedUrl.pathname]);
   } else if (urlStruct[request.method][parsedUrl.pathname]) {
     // If it's any other accepted method, handle it normally
-    //Functions that need params (i.e. non-POST, with an ID):
+    // Functions that need params (i.e. non-POST, with an ID):
     if (parsedUrl.pathname === '/resolve' || parsedUrl.pathname === '/question') {
       console.log(params);
       urlStruct[request.method][parsedUrl.pathname](request, response, params);
-    //The rest
+    // The rest
     } else {
       urlStruct[request.method][parsedUrl.pathname](request, response);
     }
