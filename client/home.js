@@ -45,6 +45,6 @@ const init = () => {
     respondButton.addEventListener('click', () => updatePrompt('respond'));
     createButton.addEventListener('click', () => updatePrompt('create'));
     resultsButton.addEventListener('click', () => updatePrompt('results'));
-}
+};
 
 window.onload = init;

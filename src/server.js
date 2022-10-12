@@ -18,6 +18,7 @@ const urlStruct = {
     '/poll': jsonHandler.getQuestion,
     '/create': htmlHandler.getCreator,
     '/results': htmlHandler.getResults,
+    '/resolve': jsonHandler.getName,
     '/bundle.js': htmlHandler.getBundle,
     '/home.js': htmlHandler.getHomeJS,
     '/results.js': htmlHandler.getResultsJS,
@@ -59,6 +60,7 @@ const parseBody = (request, response, callback) => {
 
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
+  const params = query.parse(request.url);
   console.log(parsedUrl.pathname);
 
   // If user goes directly to URL, attempt a GET request
@@ -78,7 +80,14 @@ const onRequest = (request, response) => {
     parseBody(request, response, urlStruct.POST[parsedUrl.pathname]);
   } else if (urlStruct[request.method][parsedUrl.pathname]) {
     // If it's any other accepted method, handle it normally
-    urlStruct[request.method][parsedUrl.pathname](request, response);
+    //Functions that need params:
+    if (parsedUrl.pathname === '/resolve') {
+      console.log(params);
+      urlStruct[request.method][parsedUrl.pathname](request, response, params);
+    //The rest
+    } else {
+      urlStruct[request.method][parsedUrl.pathname](request, response);
+    }
   } else {
     // Unaccepted method
     urlStruct.GET.notFound(request, response);

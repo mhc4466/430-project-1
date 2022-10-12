@@ -22,17 +22,22 @@
       <input id="choiceThreeField" type="text" name="choiceThree"value="Blue"/>
       <label for="choiceFour">Choice 4: </label>
       <input id="choiceFourField" type="text" name="choiceFour"value="Purple"/>
+      <label for="key">ID: </label>
+      <i class="fa fa-question-circle-o tooltip">
+        <span class="tooltiptext">A public ID to easily share your poll</span>
+      </i>
+      <input id="idField" type="text" name="id" value="favCol"/>
       <label for="key">Key: </label>
       <i class="fa fa-question-circle-o tooltip">
         <span class="tooltiptext">Use this key later to retrieve the results of your question</span>
       </i>
-      <input id="keyField" type="text" name="key"value="favCol"/>
+      <input id="keyField" type="text" name="key" value="abc123"/>
       <input type="submit" value="Add Question" />
     </form>
     <h4>Get results:</h4>
     <form id="getResultsForm" action="/getResults" method="post">
       <label for="key">Key: </label>
-      <input id="keyField" type="text" name="key" value="favCol"/>
+      <input id="keyField" type="text" name="key" value="abc123"/>
       <input type="submit" value="See results" />
     </form>
     <!--form id="userForm" action="/getUsers" method="get">

@@ -66,6 +66,7 @@ const submitQuestion = async (form) => {
   const choiceTwoField = form.querySelector('#choiceTwoField');
   const choiceThreeField = form.querySelector('#choiceThreeField');
   const choiceFourField = form.querySelector('#choiceFourField');
+  const idField = form.querySelector('#idField');
   const keyField = form.querySelector('#keyField');
 
   let data = `question=${questionField.value}`;
@@ -73,6 +74,7 @@ const submitQuestion = async (form) => {
   data += `&choiceTwo=${choiceTwoField.value}`;
   data += `&choiceThree=${choiceThreeField.value}`;
   data += `&choiceFour=${choiceFourField.value}`;
+  data += `&id=${idField.value}`
   data += `&key=${keyField.value}`;
 
   let response = await fetch(action, {
@@ -90,6 +92,7 @@ const makeRequest = async (form) => {
   const action = form.getAttribute('action');
   const method = form.getAttribute('method');
 
+  const idField = form.querySelector('#idField');
   const keyField = form.querySelector('#keyField');
 
   const data = `key=${keyField.value}`;
