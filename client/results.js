@@ -30,15 +30,7 @@ const handleResult = async (response) => {
     case 200:
         let obj = await response.json();
         let result = obj.result;
-
-        /* 
-        results.innerHTML += '<h2>Results:</h2>';
-        results.innerHTML += `<h3>${result.question}</h3>`;
-        results.innerHTML += `<b>${result.choiceOne.text}: </b>${result.choiceOne.votes}<br>`;
-        results.innerHTML += `<b>${result.choiceTwo.text}: </b>${result.choiceTwo.votes}<br>`;
-        results.innerHTML += `<b>${result.choiceThree.text}: </b>${result.choiceThree.votes}<br>`;
-        results.innerHTML += `<b>${result.choiceFour.text}: </b>${result.choiceFour.votes}<br>`;
-        */
+        
         results.innerHTML += 
         `<h2>Responses to "${result.question}": </h2>
         <h3><b>${result.choiceOne.text}: </b>${result.choiceOne.votes}</h3>
