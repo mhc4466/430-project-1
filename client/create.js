@@ -1,3 +1,4 @@
+//Gives user feedback as to what happened with their request
 const handleResponse = async (response) => {
   const submit = document.querySelector("#submitButton");
   submit.classList.remove("is-success");
@@ -41,6 +42,7 @@ const submitQuestion = async (form) => {
   const id = url.substring(url.indexOf('create?id=') + 10);
   const keyField = form.querySelector('#keyField');
 
+  //If anything is missing, stop this function
   if (!questionField.value || 
     !choiceOneField.value || 
     !choiceTwoField.value || 
@@ -51,7 +53,7 @@ const submitQuestion = async (form) => {
       submit.value = "Please Fill All Fields";
       submit.classList.remove("is-success");
       submit.classList.add("is-warning");
-      return;
+      return false;
     }
 
   let data = `question=${questionField.value}`;

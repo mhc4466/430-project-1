@@ -21,6 +21,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
+//Inspects request for results. Self-explanatory through conditions and messages
 const getResults = (request, response, body) => {
   const responseJSON = {};
 
@@ -41,12 +42,13 @@ const getResults = (request, response, body) => {
     responseJSON.message = 'An incorrect key was entered for the requested poll';
     return respondJSON(request, response, 403, responseJSON);
   }
-  
+
   responseJSON.result = questions[body.id];
   responseJSON.message = `Retrieved poll "${questions[body.id].question}"`;
   return respondJSON(request, response, 200, responseJSON);
 };
 
+//Returns only the name (i.e. the "question" phrase)
 const getName = (request, response, params) => {
   const responseJSON = {};
 
@@ -72,6 +74,7 @@ const getNameMeta = (request, response, params) => {
   return respondJSONMeta(request, response, 200);
 };
 
+//Takes data from the body and attempts to save it as a new poll
 const addPoll = (request, response, body) => {
   // Preemptively declare failure, overwritten in event of success
   const responseJSON = {
@@ -122,6 +125,7 @@ const addPoll = (request, response, body) => {
   return respondJSONMeta(request, response, status);
 };
 
+//Gets the requested question, for getting a poll to respond to
 const getQuestion = (request, response, params) => {
   const responseJSON = {};
 
@@ -147,6 +151,7 @@ const getQuestionMeta = (request, response, params) => {
   return respondJSONMeta(request, response, 200);
 };
 
+//Tallies the user's vote
 const acceptVote = (request, response, body) => {
   const responseJSON = {};
 
@@ -188,68 +193,3 @@ module.exports = {
   getQuestionMeta,
   acceptVote,
 };
-// const getUsersMeta = (request, response) => {
-//  respondJSONMeta(request, response, 200);
-// };
-//
-// const notReal = (request, response) => {
-//  const responseJSON = {
-//    id: 'notFound',
-//    message: 'The page you are looking for could not be found',
-//  };
-//  respondJSON(request, response, 404, responseJSON);
-// };
-//
-// const notRealMeta = (request, response) => {
-//  respondJSONMeta(request, response, 404);
-// };
-//
-// const notFound = (request, response) => {
-//  const responseJSON = {
-//    id: 'notFound',
-//    message: 'The page you are looking for could not be found',
-//  };
-//  respondJSON(request, response, 404, responseJSON);
-// };
-//
-// const notFoundMeta = (request, response) => {
-//  respondJSONMeta(request, response, 404);
-// };
-//
-// const addUser = (request, response, body) => {
-//  const responseJSON = {
-//    message: 'Name and age are both required.',
-//  };
-//  let status = 204;
-//
-//  if (!body.name || !body.age) {
-//    responseJSON.id = 'missingParams';
-//    responseJSON.message = 'Missing name and/or age';
-//    return respondJSON(request, response, 400, responseJSON);
-//  }
-//
-//  if (!users[body.name]) {
-//    status = 201;
-//    users[body.name] = {};
-//  }
-//
-//  users[body.name].name = body.name;
-//  users[body.name].age = body.age;
-//
-//  if (status === 201) {
-//    responseJSON.message = 'Created successfully';
-//    return respondJSON(request, response, status, responseJSON);
-//  }
-//  return respondJSONMeta(request, response, status);
-// };
-//
-//
-// module.exports = {
-//  getUsers,
-//  getUsersMeta,
-//  notReal,
-//  notRealMeta,
-//  notFound,
-//  notFoundMeta,
-//  addUser,
-// };

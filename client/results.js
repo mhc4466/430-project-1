@@ -1,3 +1,4 @@
+//Edit the HTML to show the name
 const writePollName = async (response) => {
     const promptHeading = document.querySelector("#promptHeading");
     promptHeading.innerHTML = '';
@@ -12,6 +13,7 @@ const writePollName = async (response) => {
     }
 }
 
+//Simple grab for poll name, not the results (which are hidden)
 const getPollName = async (id) => {
     let response = await fetch(`/resolve?id=${id}`, {
         method: 'GET',
@@ -22,6 +24,7 @@ const getPollName = async (id) => {
     writePollName(response);
 }
 
+//Takes response and gives user feedback, accounting for possible responss
 const handleResult = async (response) => {
   let results = document.querySelector('#results');
   results.innerHTML = '';
@@ -30,7 +33,7 @@ const handleResult = async (response) => {
     case 200:
         let obj = await response.json();
         let result = obj.result;
-        
+
         results.innerHTML += 
         `<h2>Responses to "${result.question}": </h2>
         <h3><b>${result.choiceOne.text}: </b>${result.choiceOne.votes}</h3>
@@ -52,7 +55,6 @@ const handleResult = async (response) => {
         results.innerHTML += '<h2>Unexpected error</h2>'
         break;
   }
-
 }
 
 const makeRequest = async (id, form) => {

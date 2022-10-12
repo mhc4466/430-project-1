@@ -72,22 +72,25 @@ const vote = async () => {
     return false;
 }
 
+//Parse the received response for the poll and create a form out of it
+//Display the form onto the page
 const handlePoll = async (response) => {
   let poll = document.querySelector('#poll');
-  //poll.innerHTML = '';
 
+  //Error if poll could not be found
   if (response.status !== 200) {
     poll.innerHTML += '<h2>Could not retrieve poll</h2>';
+    //Title the page with the poll's name if poll is found
   } else {
     let obj = await response.json();
     let question = obj.question;
     document.querySelector("#pollHeading").innerHTML = `Poll: ${question.question}`;
 
+    //Grabs the "answered" object from localstorage to check if user already responded
     const answered = JSON.parse(localStorage.getItem("answered"));
-    if (answered && answered[question.id] && false) {
+    if (answered && answered[question.id]) {
         document.querySelector("#poll").innerHTML = "Your response has already been recorded";
     } else {
-        
         const form = document.querySelector('#pollForm');
         form.id = "pollForm";
         form.action = "/vote";
