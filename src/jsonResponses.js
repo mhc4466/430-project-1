@@ -2,10 +2,10 @@ const example = {
   id: 'example', 
   key: 'xyz987',
   question: 'Apples?',
-  choiceOne: 'One1',
-  choiceTwo: 'Two2',
-  choiceThree: 'Three3',
-  choiceFour: 'Four4'
+  choiceOne: { text: 'One1', votes: 0 },
+  choiceTwo: { text: 'Two2', votes: 0 },
+  choiceThree: { text: 'Three3', votes: 0 },
+  choiceFour: { text: 'Four4', votes: 0 },
 }
 
 const questions = {example: example};
@@ -25,20 +25,20 @@ const respondJSONMeta = (request, response, status) => {
 const getResults = (request, response, body) => {
   const responseJSON = {};
 
-  if (!body.key) {
+  if (!body.id) {
     responseJSON.id = 'missingParams';
     responseJSON.message = 'Missing one or more fields';
     return respondJSON(request, response, 400, responseJSON);
   }
 
-  if (!questions[body.key]) {
+  if (!questions[body.id]) {
     responseJSON.id = 'pollNotFound';
     responseJSON.message = 'The requested poll could not be found';
     return respondJSON(request, response, 404, responseJSON);
   }
 
-  responseJSON.result = questions[body.key];
-  responseJSON.message = `Retrieved poll "${questions[body.key].question}"`;
+  responseJSON.result = questions[body.id];
+  responseJSON.message = `Retrieved poll "${questions[body.id].question}"`;
   return respondJSON(request, response, 200, responseJSON);
 };
 
@@ -72,6 +72,7 @@ const addPoll = (request, response, body) => {
   //Preemptive update, overwritten in event of new question
   let status = 204;
 
+  //If any parameter is missing, return invalid request
   if (!body.question || !body.choiceOne || !body.choiceTwo || !body.choiceThree || !body.choiceFour
     || !body.id || !body.key) {
     responseJSON.id = 'missingParams';
@@ -79,22 +80,32 @@ const addPoll = (request, response, body) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
+  //Status code of "created" if question ID doesn't already exist
   if (!questions[body.id]) {
     status = 201;
     questions[body.id] = {};
   }
 
+  //Refreshes the question entry with the given parameters. Votes cleared
   questions[body.id].id = body.id;
   questions[body.id].key = body.key;
   questions[body.id].question = body.question;
-  questions[body.id].choiceOne = { text: body.choiceOne };
-  questions[body.id].choiceOne.votes = 0;
-  questions[body.id].choiceTwo = { text: body.choiceTwo };
-  questions[body.id].choiceTwo.votes = 0;
-  questions[body.id].choiceThree = { text: body.choiceThree };
-  questions[body.id].choiceThree.votes = 0;
-  questions[body.id].choiceFour = { text: body.choiceFour };
-  questions[body.id].choiceFour.votes = 0;
+  questions[body.id].choiceOne = { 
+    text: body.choiceOne,
+    votes: 0
+  };
+  questions[body.id].choiceTwo = {
+    text: body.choiceTwo,
+    votes: 0
+  };
+  questions[body.id].choiceThree = { 
+    text: body.choiceThree,
+    votes: 0
+  };
+  questions[body.id].choiceFour = { 
+    text: body.choiceFour,
+    votes: 0
+  };
 
   if (status === 201) {
     responseJSON.message = `Created question "${body.question}" successfully`;
