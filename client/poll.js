@@ -84,7 +84,7 @@ const handlePoll = async (response) => {
     document.querySelector("#pollHeading").innerHTML = `Poll: ${question.question}`;
 
     const answered = JSON.parse(localStorage.getItem("answered"));
-    if (answered && answered[question.id]) {
+    if (answered && answered[question.id] && false) {
         document.querySelector("#poll").innerHTML = "Your response has already been recorded";
     } else {
         
@@ -93,15 +93,33 @@ const handlePoll = async (response) => {
         form.action = "/vote";
         form.method = "post";
         form.innerHTML = 
-        `<label for="choiceOne">${question.choiceOne.text}</label>
-        <input type="radio" id="choiceOneRadio" name="poll" value="1"><br>
-        <label for="choiceTwo">${question.choiceTwo.text}</label>
-        <input type="radio" id="choiceTwoRadio" name="poll" value="2"><br>
-        <label for="choiceThree">${question.choiceThree.text}</label>
-        <input type="radio" id="choiceThreeRadio" name="poll" value="3"><br>
-        <label for="choiceFour">${question.choiceFour.text}</label>
-        <input type="radio" id="choiceFourRadio" name="poll" value="4"><br>
-        <input type="submit" value="Submit choice" />`;
+        `<div class="field is-horizontal">
+            <div class="control">
+                <input class="radio" type="radio" id="choiceOneRadio" name="poll" value="1">
+            </div>
+            <label class="label" for="choiceOne">  ${question.choiceOne.text}</label>
+        </div>
+        <div class="field is-horizontal">
+            <div class="control">
+                <input class="radio" type="radio" id="choiceTwoRadio" name="poll" value="2">
+            </div>
+            <label class="label" for="choiceTwo">  ${question.choiceTwo.text}</label>
+        </div>
+        <div class="field is-horizontal">
+            <div class="control">
+                <input class="radio" type="radio" id="choiceThreeRadio" name="poll" value="3">
+            </div>
+            <label class="label" for="choiceThree">  ${question.choiceThree.text}</label>
+        </div>
+        <div class="field is-horizontal">
+            <div class="control">
+                <input class="radio" type="radio" id="choiceFourRadio" name="poll" value="4">
+            </div>
+            <label class="label" for="choiceFour">  ${question.choiceFour.text}</label>
+        </div>
+        <div class="control">
+            <input class="button" type="submit" value="Submit choice" />
+        </div>`;
         
         poll.appendChild(form);
         const sendVote = (e) => {

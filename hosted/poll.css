@@ -1,0 +1,20 @@
+#home {
+    font-size: 2em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.fa-home {
+    font-size: 2em;
+}
+
+label {
+    font-size: 1.4em !important;
+    color: white !important;
+}
+
+input[type="radio"] {
+    vertical-align: bottom;
+    margin-right: 0.5em;
+}

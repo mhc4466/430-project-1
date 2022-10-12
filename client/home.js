@@ -1,3 +1,4 @@
+//Sends a head request to see if a poll exists
 const checkForPoll = async (id) => {
     let response = await fetch(`/question?id=${id}`, {
         method: 'head'
@@ -11,6 +12,7 @@ const checkForPoll = async (id) => {
 
 //Callback for both Respond and Results because they have similar enough behavior
 //Create has too different behavior to combine
+//Manages checking for whether a poll exists before answering or viewing results
 const respondResultsCallback = async (e) => {
     e.preventDefault();
     const form = document.querySelector("#promptForm");
@@ -28,6 +30,8 @@ const respondResultsCallback = async (e) => {
     }
 }
 
+//Callback for Create, forbids entering creator for an existing ID
+//(updates are only acceptable shortly after creation)
 const createCallback = async (e) => {
     e.preventDefault();
     const form = document.querySelector("#promptForm");
@@ -45,13 +49,15 @@ const createCallback = async (e) => {
     }
 }
 
+//Handles creating a prompt as a form below the buttons when clicked
+//Each form becomes capable of querying the server
 const updatePrompt = async (source) => {
     const prompt = document.querySelector('#prompt');
     
     prompt.innerHTML = "";
     let form = document.createElement('form');
 
-    //For responding to or viewing results of a poll, prompt user for extra details
+    //For responding to, creating, or viewing results of a poll, prompt user for extra details
     switch (source) {
         case 'respond':
             prompt.innerHTML += "<h2>Enter Poll ID</h2>";
@@ -130,10 +136,12 @@ const init = () => {
     const createButton = document.querySelector('#createButton');
     const resultsButton = document.querySelector('#resultsButton');
 
+    //Each button pulls down their respective prompt to move on to the next step
     respondButton.addEventListener('click', () => updatePrompt('respond'));
     createButton.addEventListener('click', () => updatePrompt('create'));
     resultsButton.addEventListener('click', () => updatePrompt('results'));
 
+    //This makes each button darken when selected
     respondButton.addEventListener('click', () => {
         respondButton.classList.add('is-link');
         createButton.classList.remove('is-link');

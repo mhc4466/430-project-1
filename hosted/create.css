@@ -1,3 +1,14 @@
+#home {
+  font-size: 2em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.fa-home {
+  font-size: 2em;
+}
+
 #createPollForm {
   margin-bottom: 4em;
 }
